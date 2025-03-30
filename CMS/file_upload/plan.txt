@@ -1,0 +1,39 @@
+ADMINISTRATOR DASHBOARD
+*HOME
+
+DASHBOARD
+1.Customer
+2.Calendar
+3.Bookings
+4.Gallery
+
+OTHERS
+1. BOOKING REPORTS
+2. SETTINGS 
+
+
+USER DASHBOARD
+*HOME
+
+DASHBOARD
+1.PROFILE
+2.RESERVATION
+3.GALLERY
+
+
+
+ <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-calendar"></i>
+                    <span>Reservation</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header"></h6>
+                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#exampleModalCenter">Reserve Date</a>
+                        <a class="collapse-item" href="#">Status Application</a>                        
+                    </div>
+                </div>
+            </li>

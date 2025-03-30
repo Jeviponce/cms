@@ -1,0 +1,251 @@
+
+table th,td{
+    padding-left: 0.3rem;
+}
+
+table button{
+    color: white;
+}
+
+/* styles for Booking.php Forms nd all */
+#gravesDiagram td,
+#displaygraves td{
+    padding: 1rem;
+    text-align: center;
+    margin: 0.3rem;
+    width: 60px;
+
+
+    border: 3px solid transparent;
+    display: inline-block;
+    background-color: #efefef;
+    border-radius: 5px;
+}
+
+#displaygraves{
+    margin: 3rem auto 1rem auto;
+}
+
+
+#gravesDiagram{
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+#gravesDiagram  td.selected{
+    background-color: greenyellow;
+    -webkit-animation-name: rubberBand;
+    animation-name: rubberBand;
+    animation-duration: 300ms;
+    animation-fill-mode: both;
+}
+
+#gravesDiagram td.notAvailable,
+#displaygraves td.notAvailable
+{
+    color: white;
+    background-color: #db2619;
+}
+
+#gravesDiagram td:not(.space,.notAvailable):hover{
+    cursor: pointer;
+    border-color:greenyellow;
+}
+
+#gravesDiagram .space,
+#displaygraves .space{
+    background-color: #F8F9FC;
+    border: none;
+}
+
+#routeSugg{
+    display: flex;
+    justify-content: space-between;
+}
+
+@-webkit-keyframes rubberBand {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+    }
+
+    30% {
+        -webkit-transform: scale3d(1.25, 0.75, 1);
+                transform: scale3d(1.25, 0.75, 1);
+    }
+
+    40% {
+        -webkit-transform: scale3d(0.75, 1.25, 1);
+                transform: scale3d(0.75, 1.25, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.15, 0.85, 1);
+                transform: scale3d(1.15, 0.85, 1);
+    }
+
+    65% {
+        -webkit-transform: scale3d(.95, 1.05, 1);
+                transform: scale3d(.95, 1.05, 1);
+    }
+
+    75% {
+        -webkit-transform: scale3d(1.05, .95, 1);
+                transform: scale3d(1.05, .95, 1);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+    }
+    }
+
+    @keyframes rubberBand {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+    }
+
+    30% {
+        -webkit-transform: scale3d(1.25, 0.75, 1);
+                transform: scale3d(1.25, 0.75, 1);
+    }
+
+    40% {
+        -webkit-transform: scale3d(0.75, 1.25, 1);
+                transform: scale3d(0.75, 1.25, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.15, 0.85, 1);
+                transform: scale3d(1.15, 0.85, 1);
+    }
+
+    65% {
+        -webkit-transform: scale3d(.95, 1.05, 1);
+                transform: scale3d(.95, 1.05, 1);
+    }
+
+    75% {
+        -webkit-transform: scale3d(1.05, .95, 1);
+                transform: scale3d(1.05, .95, 1);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+    }
+    }
+
+    .rubberBand {
+    -webkit-animation-name: rubberBand;
+            animation-name: rubberBand;
+    }
+
+.selected {
+    background-color: greenyellow !important;
+    color: white;
+    border-color: black;
+}
+
+#door.doorColor {
+    background-color: yellow !important; /* Override other styles */
+    border: 2px solid yellow !important;    /* Emphasize the border */
+    color: whitesmoke;
+}
+.non-clickable {
+    pointer-events: none;    /* Disable clicking */
+    cursor: default;         /* Change the cursor to indicate non-clickable */
+}
+
+/* Style for the highlighted td */
+.highlighted {
+    background-color: greenyellow !important;
+    color: white;
+}
+
+
+
+
+ .grave {
+        width: 100px;
+        height: 100px;
+        border: 1px solid #000;
+        display: inline-block;
+        margin: 5px;
+        text-align: center;
+        line-height: 100px;
+    }
+   
+    .occupied {
+  background-color: red !important;
+        color: white;         /* Optional: reduce opacity to indicate it's disabled */
+  pointer-events: all;    /* Allow tooltips and hover effects */
+  border: none;
+}
+
+/* Add another layer to handle blocking click events */
+.occupied:active {
+  pointer-events: none;  /* Prevent click interactions */
+  border: none;
+}
+    .available {
+        background-color: green;
+        color: white;
+    }
+    .selected {
+        border: 3px solid yellow; /* Highlight selected */
+    }
+
+  .legend {
+        font-family: Arial, sans-serif;
+        margin: 10px;
+    }
+    .legend-item {
+        display: flex;
+        align-items: center;
+        margin: 5px 0;
+    }
+    .color-box {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        border: 1px solid #000;
+    }
+    .occupied {
+        background-color: red;
+    }
+    .entrance-exit {
+        background-color: yellow;
+    }
+    .available-slot {
+        background-color: #efefef;
+    }
+
+
+    .breadcrumb {
+        background-color: #f4f4f4; /* Light grey background */
+        padding: 10px; /* Space inside the breadcrumb */
+        border-radius: 5px; /* Rounded corners */
+    }
+
+    .breadcrumb-item {
+        display: inline-block;
+        font-size: 16px;
+        color: #333; /* Dark text color */
+    }
+
+    .breadcrumb-item.active {
+        font-weight: bold; /* Highlight the active item */
+    }
+
+    .breadcrumb-item span {
+        color: #004AD6; /* Highlight the 'DASHBOARD' in blue */
+    }
+
+        #myTable {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        font-family: Arial, sans-serif;
+    }

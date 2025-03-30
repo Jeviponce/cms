@@ -1,0 +1,78 @@
+
+    .breadcrumb {
+        background-color: #f4f4f4; /* Light grey background */
+        padding: 10px; /* Space inside the breadcrumb */
+        border-radius: 5px; /* Rounded corners */
+    }
+
+    .breadcrumb-item {
+        display: inline-block;
+        font-size: 16px;
+        color: #333; /* Dark text color */
+    }
+
+    .breadcrumb-item.active {
+        font-weight: bold; /* Highlight the active item */
+    }
+
+    .breadcrumb-item span {
+        color: #004AD6; /* Highlight the 'DASHBOARD' in blue */
+    }
+
+        #myTable {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Table Header */
+    #myTable thead {
+        background-color: #004AD6; /* Blue background for header */
+        color: white;
+    }
+
+    #myTable th, #myTable td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+    }
+    #myTable th{
+
+    }
+
+    /* Hover effect for rows */
+    #myTable tbody tr:hover {
+        background-color: #f4f4f4;
+    }
+
+    /* Styling action buttons */
+    .btn-action {
+        background-color: #4CAF50; /* Green button */
+        color: white;
+        padding: 5px 10px;
+        margin: 2px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .btn-action:hover {
+        background-color: #45a049; /* Darker green on hover */
+    }
+
+    /* Responsive design for smaller screens */
+    @media (max-width: 768px) {
+        #myTable {
+            font-size: 14px;
+        }
+
+        #myTable th, #myTable td {
+            padding: 8px;
+        }
+
+        .btn-action {
+            font-size: 12px;
+        }
+    }
