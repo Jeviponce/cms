@@ -24,7 +24,7 @@
 			$_SESSION['fname']=$RowValidate['FName'];
 			$_SESSION['id']=$RowValidate['Id'];
 			$_SESSION['mail'] = $RowValidate['Mail'];
-			header('location:../dashboard');
+			header('location:../dashboard.php');
 		}else{
 			$_SESSION['status']='invalid';
 			echo '<script>

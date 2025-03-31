@@ -7,7 +7,7 @@ require 'phpmailer/src/Exception.php';
 require 'phpmailer/src/PHPMailer.php';
 require 'phpmailer/src/SMTP.php';
 
-include("../includes/dbcon.php");
+include("../db_config.php");
 
 if (isset($_POST['submit'])) {
     $fname = $_POST['fname'];
@@ -60,24 +60,22 @@ if (isset($_POST['submit'])) {
                 $mailSender->Body = $message;
 
                 $mailSender->send();
-                    $_SESSION['msg'] = "Successful! ";
-                    $_SESSION['msg_txt'] = "Your temporary password has been successfully sent to your Email Address.";
-                    $_SESSION['icon'] = "success";
-                    header("location:index.php");
-
+                $_SESSION['msg'] = "Account Registered!";
+                $_SESSION['msg_txt'] = "Your account has been successfully registered. Please check your email for the temporary password.";
+                $_SESSION['icon'] = "success";
+                header("location:signup.php");
 
             } catch (Exception $e) {
-                    $_SESSION['msg'] = "Failed to Register! ";
-                    $_SESSION['msg_txt'] = "Please try again later.";
-                    $_SESSION['icon'] = "success";
-                    header("location:signup.php");
-               
+                $_SESSION['msg'] = "Failed to Register! ";
+                $_SESSION['msg_txt'] = "Please try again later.";
+                $_SESSION['icon'] = "success";
+                header("location:signup.php");
             }
         } else {
-                    $_SESSION['msg'] = "Failed to Register! ";
-                    $_SESSION['msg_txt'] = "Please try again later.";
-                    $_SESSION['icon'] = "success";
-                    header("location:signup.php");
+            $_SESSION['msg'] = "Failed to Register! ";
+            $_SESSION['msg_txt'] = "Please try again later.";
+            $_SESSION['icon'] = "success";
+            header("location:signup.php");
         }
     }
 }

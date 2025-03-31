@@ -42,7 +42,7 @@ require_once('includes/dbcon.php');
             <ul class="right hide-on-med-and-down">
                 <li><a href="dashboard.php">Home</a></li>
                 <li><a href="#" onclick="generateQRCode()">QR Code</a></li>
-                <input type="hidden" id="text-input" placeholder="Enter text to encode" value="https://27.110.165.6:8083/cms/CMS/">
+                <input type="hidden" id="text-input" placeholder="Enter text to encode" value="https://localhost/cms/CMS/">
             </ul>
         </div>
     </nav>

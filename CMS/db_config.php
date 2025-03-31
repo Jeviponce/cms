@@ -12,7 +12,6 @@
 		die("Connection failed: " . $conn->connect_error);
 	} else {
 		// Debug: Confirm connection success
-		// Uncomment the line below for debugging purposes
-		// echo "Debug: Database connection successful.<br>";
+		echo "Debug: Database connection successful.<br>";
 	}
 ?>

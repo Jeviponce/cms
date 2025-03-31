@@ -1,5 +1,12 @@
 <?php  
     session_start();
+
+    // Check if the user is logged in
+    if (!isset($_SESSION['lvl']) || !isset($_SESSION['mail'])) {
+        header("Location: ../index.php"); // Redirect to login page
+        exit();
+    }
+
     include ('includes/dbcon.php');
     include('includes/header.php');
     include('includes/sidebar.php');

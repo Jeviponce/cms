@@ -1,7 +1,7 @@
 <?php
 if (isset($_GET['file'])) {
     $file = urldecode($_GET['file']);
-    $filePath = 'C:\\xampp\\htdocs\\CMS\\CMS\\file_upload\\' . $file;
+    $filePath = 'C:\\xampp\\htdocs\\cms\\CMS\\file_upload\\' . $file;
 
     if (file_exists($filePath)) {
         header('Content-Description: File Transfer');
