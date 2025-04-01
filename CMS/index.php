@@ -33,11 +33,17 @@
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
-                <form class="login100-form validate-form" method="POST" action="login-query/login_query.php" autocomplete="off">
+                <form class="login100-form validate-form" method="POST" action="login-query/login_query.php" autocomplete="off" id="loginForm">
                     <span class="login100-form-title p-b-43">
                         CMS | Login to continue
                     </span>
-                    
+
+                    <!-- Error message container -->
+                    <?php if (isset($_GET['error']) && $_GET['error'] == 'invalid'): ?>
+                        <div style="color: red; text-align: center; margin-bottom: 10px;">
+                            Incorrect password or email. Please try again.
+                        </div>
+                    <?php endif; ?>
                     
                     <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
                         <input class="input100" type="text" name="mail">
@@ -62,7 +68,7 @@
 
                         <div>
                             <a href="#" class="txt1" onclick="showModal()">
-                                Forget Password?
+                                Forgot Password?
                             </a>
                         </div>
                     </div>
@@ -79,7 +85,7 @@
                     </div>
 
                     <div class="login100-form-social flex-c-m">
-                        <a href="#" class="login100-form-social-item flex-c-m bg2 m-r-5">
+                        <a href="register/signup" class="login100-form-social-item flex-c-m bg2 m-r-5">
                             <i class="fa-solid fa-cross"></i>
                         </a>
                         <span class="txt2">

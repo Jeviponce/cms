@@ -9,41 +9,46 @@
 <!-- Begin Page Content -->
 <link rel="stylesheet" href="css/style_tbl_bc.css">
 <div class="container-fluid px-4">
-   	<h3 class="mt-4">MANAGE CUSTOMER</h3>
-	<ol class="breadcrumb mb-4">
-		<li class="breadcrumb-item active" style="text-transform: uppercase;">You're Here&nbsp;| Dashboard/<span style="color:#004AD6">MANAGE CUSTOMER</span></li>
-	</ol>
-    
-	<div class="card mb-4">
-	    <div class="card-header">
-	        
-	        <a class="" data-bs-toggle="modal" data-bs-target="#filterModal">
-         	  <i class="fa-solid fa-filter"></i><i class="fa-solid fa-sort-down"></i>
-    		</a>
-	    </div>
-	    <div class="card-body">
-	        <table id="myTable">
-	            <thead>
-	                <tr>
-	                	<th>#</th>
-	                  	<th>Full Name</th>
-	                  	<th>E-Mail</th>
-	                  	<th>Contact Number</th>
-	                  	<th>Address</th>
-	                  	<th>Date Registered</th>
-	                  	<th>Status</th>
-	                    <th>Edit</th>
-	                    <th>Deactivate</th>
-	                   
-	                </tr>
-	            </thead>
-	            <tbody>
-	            	<?php include 'filter_customer.php';?>
-					<?php include 'customer_modal.php';?>
-	            </tbody>
-	        </table>
-	    </div>
-	</div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h3 class="mt-2 text-primary">MANAGE CUSTOMER</h3>
+        </div>
+        <div class="card-body">
+            <ol class="breadcrumb mb-4 bg-light p-2 rounded">
+                <li class="breadcrumb-item active" style="text-transform: uppercase;">
+                    You're Here&nbsp;| Dashboard/<span style="color:#004AD6">MANAGE CUSTOMER</span>
+                </li>
+            </ol>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <a class="" data-bs-toggle="modal" data-bs-target="#filterModal">
+                        <i class="fa-solid fa-filter"></i><i class="fa-solid fa-sort-down"></i>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <table id="myTable" class="table table-bordered table-hover">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>#</th>
+                                <th>Full Name</th>
+                                <th>E-Mail</th>
+                                <th>Contact Number</th>
+                                <th>Address</th>
+                                <th>Date Registered</th>
+                                <th>Status</th>
+                                <th>Edit</th>
+                                <th>Deactivate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php include 'filter_customer.php';?>
+                            <?php include 'customer_modal.php';?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 <!-- End of Main Content -->

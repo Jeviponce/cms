@@ -27,10 +27,7 @@
 			header('location:../dashboard.php');
 		}else{
 			$_SESSION['status']='invalid';
-			echo '<script>
-				alert("Invalid User Account");
-				window.location.href="../index";
-			</script>';
+			header('location:../index.php?error=invalid'); // Redirect with error parameter
 		}
 	}
 ?>

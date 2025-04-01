@@ -9,56 +9,52 @@
 <!-- Begin Page Content -->
 <link rel="stylesheet" href="css/style_tbl_bc.css">
 <div class="container-fluid px-4">
-   	<h3 class="mt-4">MANAGE RESERVATION</h3>
-	<ol class="breadcrumb mb-4">
-		<li class="breadcrumb-item active" style="text-transform: uppercase;">You're Here&nbsp;| Dashboard/<span style="color:#004AD6">MANAGE RESERVATION</span></li>
-	</ol>
-    
-	<div class="card mb-4">
-	    <div class="card-header">
-	        
-	        <a class="" data-bs-toggle="modal" data-bs-target="#filterModal">
-         	  <i class="fa-solid fa-filter"></i><i class="fa-solid fa-sort-down"></i>
-    		</a>
-    		&nbsp;|&nbsp; 
-    		 <a class="" data-bs-toggle="modal" data-bs-target="#ReportfilterModal">
-         	  <i class="fas fa-fw fa-book fa0"></i>
-    		</a>
-    	
-	    </div>
-	    <div class="card-body">
-	        <table id="myTable">
-	            <thead>
-	                <tr>
-	                	<th>#</th>
-	                	<th>Reference Number</th>
-	                  	<th>Full Name</th>
-	                  	<!--<th>Valid ID</th>-->
-	                  	<!--<th>Service</th>-->
-	                  	<th>Description</th>
-	                  	<th>Grave Number</th>
-	                  	<th>Lots</th>
-	                  	<!--<th>Coffin Size</th>-->
-	                    <!--<th>Burial Permit</th>-->
-	                    <!--<th>Re-Burial Permit</th>-->
-	                    <!--<th>Death Certicate</th>-->
-	                    <th>Date of Schedule</th>
-	                    <th>Date of Reservation</th>
-	                    <th>Status</th>
-	                    <th>View</th>
-	                   	<th>Action</th>
-	                </tr>
-	            </thead>
-	            <tbody>
-	            	<?php include 'filter_reservation.php';?>
-	         
-
-				   <?php include 'resevation_modal.php'; ?>
-	            </tbody>
-	        </table>
-	    </div>
-	</div>
-</div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h3 class="mt-2 text-primary">MANAGE RESERVATION</h3>
+        </div>
+        <div class="card-body">
+            <ol class="breadcrumb mb-4 bg-light p-2 rounded">
+                <li class="breadcrumb-item active" style="text-transform: uppercase;">
+                    You're Here&nbsp;| Dashboard/<span style="color:#004AD6">MANAGE RESERVATION</span>
+                </li>
+            </ol>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <a class="" data-bs-toggle="modal" data-bs-target="#filterModal">
+                        <i class="fa-solid fa-filter"></i><i class="fa-solid fa-sort-down"></i>
+                    </a>
+                    &nbsp;|&nbsp; 
+                    <a class="" data-bs-toggle="modal" data-bs-target="#ReportfilterModal">
+                        <i class="fas fa-fw fa-book fa0"></i>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <table id="myTable" class="table table-bordered table-hover">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>#</th>
+                                <th>Reference Number</th>
+                                <th>Full Name</th>
+                                <th>Description</th>
+                                <th>Grave Number</th>
+                                <th>Lots</th>
+                                <th>Date of Schedule</th>
+                                <th>Date of Reservation</th>
+                                <th>Status</th>
+                                <th>View</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php include 'filter_reservation.php';?>
+                            <?php include 'resevation_modal.php'; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- End of Main Content -->
 

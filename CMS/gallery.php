@@ -16,23 +16,29 @@ require_once('includes/dbcon.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
 
     <link rel="stylesheet" href="css/gallery_style.css">
-   
+    <style>
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        a {
+            text-decoration: none;
+            color: blue;
+            cursor: pointer;
+        }
+        .gallery-card img {
+            width: 100%;
+            height: 200px; /* Set a fixed height to make all images square */
+            object-fit: cover; /* Ensure the image fits within the square */
+            border-radius: 8px;
+        }
+    </style>
 </head>
- <style>
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li {
-      display: inline-block;
-      margin-right: 10px;
-    }
-    a {
-      text-decoration: none;
-      color: blue;
-      cursor: pointer;
-    }
-  </style>
+
 <body>
 
     <!-- Navbar -->
@@ -86,7 +92,16 @@ require_once('includes/dbcon.php');
             </div>
         </form>
 
+        <!-- Category Filter -->
         <div class="row">
+            <div class="col s12">
+                <button class="btn filter-btn" onclick="filterGallery('all')">All</button>
+                <button class="btn filter-btn" onclick="filterGallery('images')">Images</button>
+                <button class="btn filter-btn" onclick="filterGallery('videos')">Videos</button>
+            </div>
+        </div>
+
+        <div class="row" id="gallery">
             <?php
                 $sql = "SELECT *, SUBSTRING_INDEX(image, '.', -1) AS file_extension FROM gallery;";
                 $images = mysqli_query($conn, $sql);
@@ -96,17 +111,26 @@ require_once('includes/dbcon.php');
                         $filePath = './uploads/' . $image['image'];
                         $NoImage = './uploads/no-image-available.png';
                         $fileExtension = strtolower($image['file_extension']);
+                        $category = ($fileExtension === 'png' || $fileExtension === 'jpeg' || $fileExtension === 'jpg') ? 'images' : 'videos';
             ?>
-                <div class="col s12 m4 l3">
+                <div class="col s12 m4 l3 gallery-item" data-category="<?php echo $category; ?>">
                     <div class="gallery-card">
-                        <?php if ($fileExtension === 'png' || $fileExtension === 'jpeg' || $fileExtension === 'jpg') { ?>
+                        <?php if ($category === 'images') { ?>
                             <a class="fancybox" rel="ligthbox" href="<?php echo $filePath; ?>">
                                 <img alt="" src="<?php echo $filePath; ?>" />
                             </a>
                         <?php } else { ?>
-                            <a class="fancybox" rel="ligthbox" href="<?php echo $filePath; ?>">
-                                <img alt="" src="<?php echo $NoImage; ?>" />
-                            </a>
+                            <video controls width="100%" height="200">
+                                <?php if ($fileExtension === 'mp4') { ?>
+                                    <source src="<?php echo $filePath; ?>" type="video/mp4">
+                                <?php } elseif ($fileExtension === 'webm') { ?>
+                                    <source src="<?php echo $filePath; ?>" type="video/webm">
+                                <?php } elseif ($fileExtension === 'ogg') { ?>
+                                    <source src="<?php echo $filePath; ?>" type="video/ogg">
+                                <?php } else { ?>
+                                    Your browser does not support this video format.
+                                <?php } ?>
+                            </video>
                         <?php } ?>
 
                         <div class="card-content">
@@ -142,11 +166,27 @@ require_once('includes/dbcon.php');
             $(".fancybox").fancybox({
                 openEffect: "none",
                 closeEffect: "none",
+                helpers: {
+                    title: {
+                        type: 'inside'
+                    }
+                }
             });
 
             // Materialize initialization
             M.AutoInit();  
         });
+
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
       <script>

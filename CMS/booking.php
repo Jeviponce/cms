@@ -9,14 +9,19 @@
 <!-- Begin Page Content -->
 <link rel="stylesheet" href="css/map_style.css">
 <div class="container-fluid px-4">
-   <h3 class="mt-4">RESERVE GRAVE SLOT</h3>
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active" style="text-transform: uppercase;">You're Here&nbsp;| Dashboard/<span style="color:#004AD6">RESERVE GRAVE SLOT</span></li>
-    </ol>
-
-
-    <?php include 'booking_map.php'?>
-</div>
+   <div class="card shadow mb-4">
+       <div class="card-header py-3">
+           <h3 class="mt-2 text-primary">RESERVE GRAVE SLOT</h3>
+       </div>
+       <div class="card-body">
+           <ol class="breadcrumb mb-4 bg-light p-2 rounded">
+               <li class="breadcrumb-item active" style="text-transform: uppercase;">
+                   You're Here&nbsp;| Dashboard/<span style="color:#004AD6">RESERVE GRAVE SLOT</span>
+               </li>
+           </ol>
+           <?php include 'booking_map.php'?>
+       </div>
+   </div>
 </div>
 <!-- End of Main Content -->
 

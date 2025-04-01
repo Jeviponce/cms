@@ -110,7 +110,7 @@
 					</div>
 
 					<div class="login100-form-social flex-c-m">
-						<a href="#" class="login100-form-social-item flex-c-m bg2 m-r-5">
+						<a href="../index.php" class="login100-form-social-item flex-c-m bg2 m-r-5">
 							<i class="fa-solid fa-right-to-bracket"></i>
 						</a>
 						<span class="txt2">
