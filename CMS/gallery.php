@@ -36,6 +36,22 @@ require_once('includes/dbcon.php');
             object-fit: cover; /* Ensure the image fits within the square */
             border-radius: 8px;
         }
+        .delete-confirmation {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            text-align: center;
+        }
+        .delete-confirmation button {
+            margin: 5px;
+        }
     </style>
 </head>
 
@@ -136,7 +152,7 @@ require_once('includes/dbcon.php');
                         <div class="card-content">
                             <small><?php echo $image['title']; ?></small>
                         </div>
-                        <form action="./imageDelete.php" method="POST">
+                        <form action="./imageDelete.php" method="POST" onsubmit="return showDeleteConfirmation(event);">
                             <input type="hidden" name="id" value="<?php echo $image['id']; ?>">
                             <button type="submit" class="close-icon btn btn-danger"><i class="mdi mdi-delete"></i></button>
                         </form>
@@ -160,6 +176,15 @@ require_once('includes/dbcon.php');
             <span class="footer-text">Copyright &copy; Rest in Digital Peace System 2024</span>
         </div>
     </footer>
+
+    <div id="delete-confirmation" class="delete-confirmation" style="display: none;">
+        <p>Are you sure you want to delete this?</p>
+        <form id="delete-form" action="./imageDelete.php" method="POST">
+            <input type="hidden" name="id" id="delete-id">
+            <button type="submit" class="btn btn-danger">Yes</button>
+            <button type="button" onclick="closeDeleteConfirmation()" class="btn btn-secondary">No</button>
+        </form>
+    </div>
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -186,6 +211,22 @@ require_once('includes/dbcon.php');
                     item.style.display = 'none';
                 }
             });
+        }
+
+        function showDeleteConfirmation(event) {
+            event.preventDefault();
+            const form = event.target;
+            const id = form.querySelector('input[name="id"]').value;
+            document.getElementById('delete-id').value = id;
+            document.getElementById('delete-confirmation').style.display = 'block';
+        }
+
+        function closeDeleteConfirmation() {
+            document.getElementById('delete-confirmation').style.display = 'none';
+        }
+
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete this?");
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>

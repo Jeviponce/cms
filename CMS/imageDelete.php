@@ -1,47 +1,51 @@
 <?php
 session_start();
 require_once('includes/dbcon.php');
- $lvl = $_SESSION['lvl'];
- $mail = $_SESSION['mail']; 
+$lvl = $_SESSION['lvl'];
+$mail = $_SESSION['mail'];
 
-if (isset($_POST) && !empty($_POST['id'])) {
-    // Escape the ID to prevent SQL injection
-    $id = mysqli_real_escape_string($conn, $_POST['id']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
+    $id = intval($_POST['id']);
 
-    // Select image to delete
-    $sql_select = "SELECT image FROM gallery WHERE id = $id";
-    $select_result = mysqli_query($conn, $sql_select);
+    // Fetch the image file path
+    $query = "SELECT image FROM gallery WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $image = $result->fetch_assoc();
 
-    if ($select_result && mysqli_num_rows($select_result) > 0) {
-        $row = mysqli_fetch_row($select_result);
-        $image_name = $row[0];
+    if ($image) {
+        $filePath = './uploads/' . $image['image'];
 
-        // Code to unlink (delete) the image physically from the folder
-        if (file_exists("./uploads/" . $image_name)) {
-            unlink("./uploads/" . $image_name);
+        // Delete the file from the server
+        if (file_exists($filePath)) {
+            unlink($filePath);
         }
 
         // Delete the record from the database
-        $sql = "DELETE FROM gallery WHERE id = $id";
-        mysqli_query($conn, $sql);
+        $deleteQuery = "DELETE FROM gallery WHERE id = ?";
+        $deleteStmt = $conn->prepare($deleteQuery);
+        $deleteStmt->bind_param("i", $id);
+        $deleteStmt->execute();
 
-        
-
-    } else {
-        $_SESSION['error'] = 'Image not found.';
-    }
-        if ($lvl == '0') {
-            header("Location:./customer-gallery.php?id=$mail");
+        if ($deleteStmt->affected_rows > 0) {
+            $_SESSION['success'] = "Image deleted successfully.";
         } else {
-            header("Location:./gallery.php");
+            $_SESSION['error'] = "Failed to delete the image.";
         }
-} else {
-    $_SESSION['error'] = 'Please select an image or write a title.';
-    if ($lvl == '0') {
-        header("Location:./customer-gallery.php?id=$mail");
     } else {
-        header("Location:./gallery.php");
+        $_SESSION['error'] = "Image not found.";
     }
+
+    $stmt->close();
+    $conn->close();
 }
-mysqli_close($conn); // Close the database connection
+
+if ($lvl == '0') {
+    header("Location:./customer-gallery.php?id=$mail");
+} else {
+    header("Location:./gallery.php");
+}
+exit;
 ?>
