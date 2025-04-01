@@ -119,7 +119,7 @@
                         </div>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="profile">
+                            <a class="nav-link" href="profile.php">
                                 <i class="fas fa-fw fa-user fa0"></i>
                                 <span>Profile</span>
                             </a>

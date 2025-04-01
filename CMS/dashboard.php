@@ -2,7 +2,7 @@
     session_start();
 
     // Check if the user is logged in
-    if (!isset($_SESSION['lvl']) || !isset($_SESSION['mail'])) {
+    if (!isset($_SESSION['lvl']) || !isset($_SESSION['mail']) || $_SESSION['status'] !== 'valid') {
         header("Location: ../index.php"); // Redirect to login page
         exit();
     }
@@ -16,177 +16,190 @@
 ?>
 
 <style>
-    .info-box{
-        box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
-        border-radius: 0.25rem;
-        background-color: #fff;
-        display: -ms-flexbox;
+    .info-box {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+        border-radius: 0.5rem;
+        background-color: #f8f9fa;
         display: flex;
-        margin-bottom: 1rem;
-        min-height: 80px;
-        padding: .5rem;
+        margin-bottom: 1.5rem;
+        min-height: 100px;
+        padding: 1rem;
         position: relative;
-        width: 100%;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .info-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .info-box .info-box-icon {
-        border-radius: 0.25rem;
-        -ms-flex-align: center;
+        border-radius: 0.5rem;
         align-items: center;
-        display: -ms-flexbox;
         display: flex;
-        font-size: 1.875rem;
-        -ms-flex-pack: center;
+        font-size: 2rem;
         justify-content: center;
         text-align: center;
-        width: 70px;
+        width: 80px;
+        height: 80px;
+        color: #fff;
     }
 
     .info-box .info-box-content {
-        display: -ms-flexbox;
         display: flex;
-        -ms-flex-direction: column;
         flex-direction: column;
-        -ms-flex-pack: center;
         justify-content: center;
-        line-height: 1.8;
-        -ms-flex: 1;
+        line-height: 1.5;
         flex: 1;
-        padding: 0 10px;
+        padding-left: 15px;
     }
 
-    .info-box .info-box-number{
-        text-align:right;
-        color: #343a40 !important;
-        display: block;
-        margin-top: .25rem;
+    .info-box .info-box-text {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #495057;
+    }
+
+    .info-box .info-box-number {
+        font-size: 1.25rem;
         font-weight: 700;
-    }
-    .bg-primary{
-        color:#fff;
+        color: #343a40;
     }
 
-    .elevation-1{
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24) !important;
+    .bg-warning {
+        background-color: #ffc107 !important;
     }
 
+    .bg-primary {
+        background-color: #007bff !important;
+    }
+
+    .bg-success {
+        background-color: #28a745 !important;
+    }
+
+    .bg-secondary {
+        background-color: #6c757d !important;
+    }
+
+    .breadcrumb {
+        background-color: #e9ecef;
+        border-radius: 0.25rem;
+        padding: 0.75rem 1rem;
+    }
+
+    .breadcrumb-item a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .breadcrumb-item a:hover {
+        text-decoration: underline;
+    }
+
+    h3 {
+        font-weight: bold;
+        color: #343a40;
+    }
 </style>
+
 <!-- Begin Page Content -->
 <link rel="stylesheet" href="css/style_tbl_bc.css">
 <div class="container-fluid px-4">
     <h3 class="mt-4" style="text-transform:uppercase;">St. Joseph Catholic Cemetery</h3>
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active" style="text-transform: uppercase;">You're Here&nbsp;| <span style="color:#004AD6">HOME</span></li>
+        <li class="breadcrumb-item active" style="text-transform: uppercase;">You're Here&nbsp;| <a href="index.php" style="color:#004AD6;">Home</a></li>
     </ol>
     
     <!--Content Start Here-->
     <div class="row">
         <div class="col-12 col-sm-6 col-md-3">
-
-              <div class="info-box">
-                <span class="info-box-icon bg-warning elevation-1"><i class="fa-solid fa-user-tie" style="color:white;"></i></span>
+            <div class="info-box">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fa-solid fa-user-tie"></i></span>
                 <div class="info-box-content">
                     <?php 
-
-                        if($lvl==0)
-                        {
+                        if($lvl==0) {
                             $query = mysqli_query($conn, "SELECT COUNT(*) as count FROM schedule_list WHERE UserMail='$mail'");
                             $row = mysqli_fetch_assoc($query);
                             $count = $row['count'];
                             echo '
                             <span class="info-box-text">For Confirmation</span>
-                            <span class="info-box-number text-right">' . $count . '</span>';
-
-                        }else{
+                            <span class="info-box-number">' . $count . '</span>';
+                        } else {
                             $query = mysqli_query($conn, "SELECT COUNT(*) as count FROM user_tbl WHERE userlvl='0'");
                             $row = mysqli_fetch_assoc($query);
                             $count = $row['count'];
                             echo '
                             <span class="info-box-text">Total Customer</span>
-                            <span class="info-box-number text-right">' . $count . '</span>';
+                            <span class="info-box-number">' . $count . '</span>';
                         }
-
-                        
                     ?>
                 </div>
             </div>
         </div>
 
-        <div class="col-12 col-sm-6 col-md-3">  
-
+        <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box">
-                <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-user"></i>
-
-                </span>
+                <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-user"></i></span>
                 <div class="info-box-content">
                     <?php 
-
-                        if($lvl==0)
-                        {
+                        if($lvl==0) {
                             $query = mysqli_query($conn, "SELECT COUNT(*) as count FROM gallery WHERE UserMail='$mail'");
                             $row = mysqli_fetch_assoc($query);
                             $count = $row['count'];
                             echo '
                             <span class="info-box-text">Total Media</span>
-                            <span class="info-box-number text-right">' . $count . '</span>';
-                            
-                        }else{
+                            <span class="info-box-number">' . $count . '</span>';
+                        } else {
                             $query = mysqli_query($conn, "SELECT COUNT(*) as count FROM user_tbl WHERE userlvl='1'");
                             $row = mysqli_fetch_assoc($query);
                             $count = $row['count'];
                             echo '
                             <span class="info-box-text">Total User</span>
-                            <span class="info-box-number text-right">' . $count . '</span>';
+                            <span class="info-box-number">' . $count . '</span>';
                         }
-                     
                     ?>
                 </div>
-
             </div>
-          
         </div>
 
-       <?php if ($lvl != '0') { ?>
-            <div class="col-12 col-sm-6 col-md-3">  
+        <?php if ($lvl != '0') { ?>
+            <div class="col-12 col-sm-6 col-md-3">
                 <div class="info-box">
-                    <span class="info-box-icon bg-success elevation-1"><i class="fa-solid fa-thumbs-up text-white"></i></span>
+                    <span class="info-box-icon bg-success elevation-1"><i class="fa-solid fa-thumbs-up"></i></span>
                     <div class="info-box-content">
                         <?php 
-                          $query = mysqli_query($conn, "SELECT COUNT(*) as count FROM schedule_list WHERE status='1'");
-                          $row = mysqli_fetch_assoc($query);
-                          $count = $row['count'];
-                          echo '
-                          <span class="info-box-text">Total Confirmed</span>
-                          <span class="info-box-number text-right">' . $count . '</span>';
+                            $query = mysqli_query($conn, "SELECT COUNT(*) as count FROM schedule_list WHERE status='1'");
+                            $row = mysqli_fetch_assoc($query);
+                            $count = $row['count'];
+                            echo '
+                            <span class="info-box-text">Total Confirmed</span>
+                            <span class="info-box-number">' . $count . '</span>';
                         ?>
                     </div>
                 </div>
             </div>
 
-            <!--- Rejected -->
-            <div class="col-12 col-sm-6 col-md-3">  
+            <div class="col-12 col-sm-6 col-md-3">
                 <div class="info-box">
-                    <span class="info-box-icon bg-secondary elevation-1"><i class="fa-solid fa-file-pen text-white"></i></span>
+                    <span class="info-box-icon bg-secondary elevation-1"><i class="fa-solid fa-file-pen"></i></span>
                     <div class="info-box-content">
                         <?php 
-                          $query = mysqli_query($conn, "SELECT COUNT(*) as count FROM schedule_list WHERE status='0'");
-                          $row = mysqli_fetch_assoc($query);
-                          $count = $row['count'];
-                          echo '
-                          <span class="info-box-text">Total Reservation</span>
-                          <span class="info-box-number text-right">' . $count . '</span>';
+                            $query = mysqli_query($conn, "SELECT COUNT(*) as count FROM schedule_list WHERE status='0'");
+                            $row = mysqli_fetch_assoc($query);
+                            $count = $row['count'];
+                            echo '
+                            <span class="info-box-text">Total Reservation</span>
+                            <span class="info-box-number">' . $count . '</span>';
                         ?>
                     </div>
                 </div>
             </div>
-    <?php } ?>
-
+        <?php } ?>
     </div>
 
     <!-- Bar Graph Section -->
-
     <div class="row">
-
         <div class="col-md-12">
             <?php if ($lvl == '0') { ?>
                 <?php include 'customer-bookings.php'; ?>
@@ -195,9 +208,7 @@
             <?php } ?>
         </div>
     </div>
-
 </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
