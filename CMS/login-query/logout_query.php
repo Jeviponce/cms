@@ -5,7 +5,7 @@
     session_destroy(); // Destroy the session
     setcookie(session_name(), '', time() - 3600, '/'); // Expire the session cookie
     echo "<script>
-        alert('You have been logged out. Please log in again to access the Cemetery Management System.');
+        alert('You have been logged out.');
         window.location.href='/cms';
     </script>"; // Redirect to the home page with a notification
 ?>
