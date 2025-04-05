@@ -17,51 +17,51 @@
 
 <style>
     .info-box {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
-        border-radius: 0.5rem;
-        background-color: #f8f9fa;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 0.75rem;
+        background-color: #ffffff;
         display: flex;
         margin-bottom: 1.5rem;
-        min-height: 100px;
-        padding: 1rem;
+        min-height: 120px;
+        padding: 1.5rem;
         position: relative;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .info-box:hover {
         transform: translateY(-5px);
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.15);
     }
 
     .info-box .info-box-icon {
-        border-radius: 0.5rem;
+        border-radius: 0.75rem;
         align-items: center;
         display: flex;
-        font-size: 2rem;
+        font-size: 2.5rem;
         justify-content: center;
         text-align: center;
-        width: 80px;
-        height: 80px;
-        color: #fff;
+        width: 100px;
+        height: 100px;
+        color: #ffffff;
     }
 
     .info-box .info-box-content {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        line-height: 1.5;
+        line-height: 1.6;
         flex: 1;
-        padding-left: 15px;
+        padding-left: 20px;
     }
 
     .info-box .info-box-text {
-        font-size: 1rem;
+        font-size: 1.1rem;
         font-weight: 600;
         color: #495057;
     }
 
     .info-box .info-box-number {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
         font-weight: 700;
         color: #343a40;
     }
@@ -83,14 +83,16 @@
     }
 
     .breadcrumb {
-        background-color: #e9ecef;
-        border-radius: 0.25rem;
+        background-color: #f8f9fa;
+        border-radius: 0.5rem;
         padding: 0.75rem 1rem;
+        font-size: 1rem;
     }
 
     .breadcrumb-item a {
         color: #007bff;
         text-decoration: none;
+        font-weight: 500;
     }
 
     .breadcrumb-item a:hover {
@@ -100,6 +102,63 @@
     h3 {
         font-weight: bold;
         color: #343a40;
+        margin-bottom: 1rem;
+    }
+
+    table.table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        background-color: #ffffff;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    table.table th, table.table td {
+        padding: 1rem;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    table.table th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        color: #495057;
+    }
+
+    table.table tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    table.table tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+    .btn {
+        border-radius: 0.5rem;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
     }
 </style>
 
@@ -206,6 +265,54 @@
             <?php } else { ?>
                 <canvas id="reservationChart"></canvas>
             <?php } ?>
+        </div>
+    </div>
+
+    <!-- Deceased Details Section -->
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="mt-4">Deceased Details</h3>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Contract ID</th>
+                            <th>Deceased Name</th>
+                            <th>End of Contract</th>
+                            <th>Renewal Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // Fetch data of deceased registered under the logged-in account
+                        $query = mysqli_query($conn, "
+                            SELECT 
+                                id AS contract_id, 
+                                description AS deceased_name, 
+                                DATE_ADD(dte, INTERVAL 1 MINUTE) AS due_date, 
+                                IF(DATE_ADD(dte, INTERVAL 1 MINUTE) < NOW(), 'Expired', 'Active') AS renewal_status 
+                            FROM schedule_list
+                            WHERE description IS NOT NULL AND mail = '$mail'
+                        ");
+                        
+                        while ($row = mysqli_fetch_assoc($query)) {
+                            $contractId = $row['contract_id'];
+                            $deceasedName = $row['deceased_name'];
+                            $dueDate = $row['due_date'];
+                            $renewalStatus = $row['renewal_status'];
+
+                            echo "
+                            <tr>
+                                <td>$contractId</td>
+                                <td>$deceasedName</td>
+                                <td>$dueDate</td>
+                                <td>$renewalStatus</td>
+                            </tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

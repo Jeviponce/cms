@@ -11,12 +11,12 @@
 <div class="container-fluid px-4">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h3 class="mt-2 text-primary">MANAGE CUSTOMER</h3>
+            <h3 class="mt-2 text-primary">MANAGE CLIENT</h3>
         </div>
         <div class="card-body">
             <ol class="breadcrumb mb-4 bg-light p-2 rounded">
                 <li class="breadcrumb-item active" style="text-transform: uppercase;">
-                    You're Here&nbsp;| Dashboard/<span style="color:#004AD6">MANAGE CUSTOMER</span>
+                    You're Here&nbsp;| Dashboard/<span style="color:#004AD6">MANAGE CLIENT</span>
                 </li>
             </ol>
             <div class="card mb-4">

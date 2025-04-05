@@ -117,8 +117,19 @@ require_once('includes/dbcon.php');
             // Materialize initialization
             M.AutoInit();  
         });
+
+        // Function to handle QR code scanning result
+        function handleQRCodeResult(result) {
+            document.getElementById('result').value = result; // Set hidden input value
+            if (result) {
+                window.location.href = result; // Redirect to the scanned QR code link
+            }
+        }
     </script>
+    <!-- Include scanner logic -->
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+    <script src="includes/scanner.js"></script>
+    <!-- Ensure scanner.js calls handleQRCodeResult(result) when a QR code is scanned -->
   
 </body>
 </html>

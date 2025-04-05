@@ -52,7 +52,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="customer.php">
                             <i class="fas fa-fw fa-user fa0"></i>
-                            <span>Manage Customer</span>
+                            <span>Manage Client</span>
                         </a>
                     </li>
 
@@ -73,15 +73,6 @@
                         </a>
                     </li>
                     
-                    <li class="nav-item">
-                        <a class="nav-link" href="gallery.php">
-                            <i class="fas fa-fw fa-image fa0"></i>
-                            <span>Manage Gallery</span>
-                        </a>
-                    </li>
-
-
-                    
 
                     <li class="nav-item">
                         <a class="nav-link" href="booking.php">
@@ -90,13 +81,7 @@
                         </a>
                     </li>
 
-
                     <hr class="sidebar-divider">
-
-                    <!-- Heading -->
-                    <div class="sidebar-heading">
-                        OTHERS
-                    </div>
 
                     <li class="nav-item">
                             <a class="nav-link" href="qrscan.php">
@@ -104,7 +89,6 @@
                                 <span>QR Code Scanner</span>
                             </a>
                     </li>
-                   
                     <li class="nav-item">
                         <a class="nav-link" href="cemetery-map.php">
                             <i class="fa-solid fa-route"></i>
@@ -153,6 +137,7 @@
                             </a>
                         </li>
 
+                        <hr class="sidebar-divider">
                     ';
                 }
             ?>

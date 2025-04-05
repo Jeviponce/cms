@@ -7,4 +7,5 @@
 	
 	$conn=new mysqli($sname,$uname,$pwd,$dbname);
 	
+	
 ?>

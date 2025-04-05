@@ -9,6 +9,12 @@
         }catch(Exception $e){
         echo $e;
       }
+
+// Query to check for expired contracts
+$expiredContractsQuery = "SELECT COUNT(*) as expired_count FROM schedule_list WHERE DATE_ADD(dte, INTERVAL 1 MINUTE) < NOW() AND mail = '$mail'";
+$expiredContractsResult = mysqli_query($conn, $expiredContractsQuery);
+$expiredContractsRow = mysqli_fetch_assoc($expiredContractsResult);
+$expiredContractsCount = $expiredContractsRow['expired_count'] ?? 0;
 ?>
 
 
@@ -43,8 +49,7 @@
                     <div class="input-group-append">
                          <i class="fas fa-cross fa-lg"></i>
                     </div>
-                    <h6 style="color:;">&nbsp;St. Joseph Catholic Cemetery</h6>
-
+                    <h6>&nbsp;St. Joseph Catholic Cemetery</h6>
       
                 </div>
             </form>
@@ -105,9 +110,13 @@
             // Extract only the year from start_datetime
             $start_year = date('Y', strtotime($start_datetime)); 
 
-                                        if ($start_year - $currentYear >= 5) {
-                                            echo '<span class="badge badge-danger badge-counter custom-badge" id="notificationBadge"></span>';
-                                        }
+            $start_time = strtotime($start_datetime); // Convert start_datetime to a timestamp
+            $current_time = time(); // Get the current timestamp
+
+            // Check if 2 minutes have passed since the start time
+            if (($current_time - $start_time) >= 120) { // 120 seconds = 2 minutes
+                echo '<span class="badge badge-danger badge-counter custom-badge" id="notificationBadge"></span>';
+            }
 
                                     // Check if today is the anniversary (same month and day)
                                     if ($month == $currentMonth && $dd == $currentDay) {
@@ -119,6 +128,11 @@
                             }
                         ?>
                         
+                        <?php if ($expiredContractsCount > 0): ?>
+                            <span class="badge badge-danger badge-counter custom-badge" id="expiredBadge">
+                                <?php echo $expiredContractsCount; ?>
+                            </span>
+                        <?php endif; ?>
                     </a>
 
 
@@ -154,10 +168,10 @@
                                     $currentYear = date('Y');
                                     $anniv = $currentYear - $yr;
                                     
-                                    // Check if today is the renewal date (5+ years)
-                                    if ($start_year - $currentYear >= 5) {
+                                    // Check if today is the renewal date (2 minutes for testing)
+                                    if (($current_time - $start_time) >= 120) { // 120 seconds = 2 minutes
                                         // Prepare the renewal notification message
-                                        $renewalMessage = "$description's renewal is due. It's been " . ($start_year - $currentYear) . " year(s) since the start date.";
+                                        $renewalMessage = "$description's renewal is due. It's been 2 minutes since the start date.";
 
                                         // Display the renewal notification
                                         echo '<a class="dropdown-item d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#notificationModal" data-message="' . htmlspecialchars($renewalMessage) . '">
@@ -223,6 +237,23 @@
                             }
                         ?>
 
+                        <?php if ($expiredContractsCount > 0): ?>
+                            <a class="dropdown-item d-flex align-items-center" href="dashboard.php">
+                                <div class="mr-3">
+                                    <div class="icon-circle bg-danger">
+                                        <i class="fas fa-exclamation-triangle text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-gray-500">Date Today: <?php echo date('F d, Y'); ?></div>
+                                    <span class="font-weight-bold">
+                                        You have <?php echo $expiredContractsCount; ?> expired contract(s).
+                                    </span>
+                                </div>
+                            </a>
+                        <?php else: ?>
+                            <a class="dropdown-item text-center small text-gray-500" href="#">No new notifications</a>
+                        <?php endif; ?>
 
                     </div>
                 </li>   
